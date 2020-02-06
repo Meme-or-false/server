@@ -3,7 +3,7 @@
 const yandexRouter = require("express").Router();
 const axios = require("axios").default;
 
-yandexRouter.get("/", function (req, res, next) {
+yandexRouter.post("/", function (req, res, next) {
   const yandexBaseURL = `https://translate.yandex.net`;
   const yandexLang = `en-id`;
   const yandexKey = process.env.YANDEX_API_KEY;
@@ -13,7 +13,7 @@ yandexRouter.get("/", function (req, res, next) {
     params: {
       key: yandexKey,
       lang: yandexLang,
-      text: `This is the first ever attempt to translate!`
+      text: req.body.question
     }
   })
     .then(({data}) => {
