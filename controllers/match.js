@@ -6,12 +6,12 @@ class MatchController {
   static updateHighestScore(req, res, next) {
     const userData = {
       email: req.user.email,
-      match_id: req.user.match_id
+      match_id: req.body.match_id
     };
 
     Match.findOne({ where: { id: userData.match_id } })
       .then(match => {
-        return User.update({ highestScore: match.score }, { where: { email: userData.email } });
+        return User.update({ highest_score: match.score }, { where: { email: userData.email } });
       })
       .then(user => {
         res.status(200).json({ message: "Successfully updated user highest score!" });
@@ -23,8 +23,8 @@ class MatchController {
 
   static updateMatchScore(req, res, next) {
     const updateData = {
-      match_id: req.user.match_id,
-      score: req.user.score
+      match_id: req.body.match_id,
+      score: 100
     };
 
     Match.findOne({ where: { id: updateData.match_id } })
@@ -40,7 +40,7 @@ class MatchController {
   }
 
   static endMatch(req, res, next) {
-    Match.destroy({ where: { id: req.user.match_id } })
+    Match.destroy({ where: { id: req.body.match_id } })
       .then(match => {
         res.status(200).json({ message: "Successfully ended match!" });
       })
@@ -50,7 +50,7 @@ class MatchController {
   }
 
   static startMatch(req, res, next) {
-    Match.create({ UserId: req.user.user_id, score: 0 })
+    Match.create({ UserId: req.user.id, score: 0 })
       .then(match => {
         res.status(200).json({ match_id: match.id });
       })
