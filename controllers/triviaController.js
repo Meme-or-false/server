@@ -1,4 +1,4 @@
-const axios = require('axios');
+const axios = require('axios').default;
 
 class Trivia {
   static getTrivia(req, res, next) {
@@ -18,8 +18,8 @@ class Trivia {
         res.status(200).send(trivias)
       })
       .catch(err => {
-        console.log(err, '< ini error')
-      })
+        console.log(err);
+      });
   }
 }
 
