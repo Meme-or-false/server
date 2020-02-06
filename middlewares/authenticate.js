@@ -5,7 +5,7 @@ const createError = require("http-errors");
 
 module.exports = (req, res, next) => {
   try {
-    const user = jwt.verify(req.body.token, process.env.JWT_SECRET_KEY);
+    const user = jwt.verify(req.headers.token, process.env.JWT_SECRET_KEY);
     if (!user) {
       throw createError(401, "INVALID TOKEN!");
     }

@@ -2,7 +2,7 @@
 
 const {
   User
-} = require('../models/index');
+} = require('../models');
 const {
   generateToken
 } = require('../helper/jwt');
