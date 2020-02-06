@@ -4,11 +4,13 @@ const userController = require('../controllers/user')
 const memeRouter = require('./meme')
 const triviaRouter = require('./trivia')
 const yandexRouter = require("./yandex");
+const triviaRouter = require('./trivia')
 
 router.post('/g-sign', userController.googleSignIn)
 
 router.use('/memes', memeRouter)
 router.use('/trivia', triviaRouter)
 router.use("/yandex", yandexRouter);
+router.use('/trivia', triviaRouter)
 
 module.exports = router
