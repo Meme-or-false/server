@@ -59,7 +59,7 @@ class UserController {
           };
           const token = generateToken(payload);
           res.status(200).json({
-            token
+            token, email: payload.email
           });
         } else {
           throw createError(401, 'Invalid username or password');
@@ -105,7 +105,7 @@ class UserController {
       };
       const token = generateToken(payload);
       res.status(200).json({
-        token
+        token, email: payload.email
       });
     }).catch(err => {
       next(err);
