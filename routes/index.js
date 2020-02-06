@@ -4,13 +4,20 @@ const userController = require('../controllers/user')
 const memeRouter = require('./meme')
 const triviaRouter = require('./trivia')
 const yandexRouter = require("./yandex");
-const triviaRouter = require('./trivia')
+const matchRouter = require("./match");
+const authenticate = require("../middlewares/authenticate");
+const errorHandler = require("../middlewares/errorHandler");
 
 router.post('/g-sign', userController.googleSignIn)
+router.post("/login", userController.login);
+router.post("/register", userController.register);
 
-router.use('/memes', memeRouter)
-router.use('/trivia', triviaRouter)
+router.use(errorHandler);
+router.use(authenticate);
+
+router.use('/memes', memeRouter);
+router.use('/trivia', triviaRouter);
 router.use("/yandex", yandexRouter);
-router.use('/trivia', triviaRouter)
+router.use("/match", matchRouter);
 
-module.exports = router
+module.exports = router;
