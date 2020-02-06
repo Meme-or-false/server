@@ -15,10 +15,10 @@ class Trivia {
             incorrect_answer: trivia.incorrect_answers[0]
           })
         })
-        res.status(200).send(trivias)
+        res.status(200).json(trivias)
       })
       .catch(err => {
-        console.log(err, '< ini error')
+        next(err)
       })
   }
 }
