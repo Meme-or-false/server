@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING
+    },
+    highest_score: {
+      type: DataTypes.INTEGER
     }
   }, {
     hooks: {

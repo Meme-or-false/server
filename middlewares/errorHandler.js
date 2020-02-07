@@ -1,6 +1,8 @@
 module.exports = (err, req, res, next) => {
-  // tambahin sendiri errornya
-  console.log(err)
-
-  res.status(500).json(err)
+  if (err) {
+    res.status(err.status).json({ message: err.message });
+  }
+  else {
+    next();
+  }
 }
