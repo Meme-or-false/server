@@ -10,6 +10,12 @@ Returns meme data randomly in JSON data.
   * `GET`
 * URL Params
   * None
+* Header Params
+  ```javascript
+  {
+    token: // your token
+  }
+  ```
 * Data Params
   * None
 * Success Response
@@ -41,6 +47,12 @@ Returns question data randomly in **Array of JSON data** with total amount of 10
   * `GET`
 * URL Params
   * None
+* Header Params
+  ```javascript
+  {
+    token: // your token
+  }
+  ```
 * Data Params
   * None
 * Success Response
@@ -93,6 +105,12 @@ Returns Indonesian-English translated words or sentences that is/are located in 
   * `POST`
 * URL Params
   * None
+* Header Params
+  ```javascript
+  {
+    token: // your token
+  }
+  ```
 * Data Params
   ```javascript
   {
@@ -146,12 +164,14 @@ This will start a match upon user id and generate the match id, match id will be
   * `POST`
 * URL Params
   * None
-* Data Params
+* Header Params
   ```javascript
   {
-    user_id: // your user id (integer)
+    token: // your token
   }
   ```
+* Data Params
+  * None
 * Success Response
   * Code: 200
   * Content: 
@@ -197,18 +217,20 @@ This will end a match, accumulate the final score into user's highest_score colu
   * `DELETE`
 * URL Params
   * None
-* Data Params
+* Header Params
   ```javascript
   {
-    user_id: // your user id (integer)
+    token: // your token
   }
   ```
+* Data Params
+  * None
 * Success Response
   * Code: 200
   * Content: 
   ```javascript
   {
-    "match_id": // the match id (integer)
+    "message": "Succesfully ended match!"
   }
   ```
 * Error Response
@@ -222,13 +244,127 @@ This will end a match, accumulate the final score into user's highest_score colu
 * Sample Call
   ```javascript
   $.ajax({
-    type: "POST",
+    type: "DELETE",
     url: "/match",
     data: {
       user_id: 1
     }
   })
     .done(match_id => {
+      // do your awesome things here
+    })
+    .fail(error => {
+      // handle here
+    });
+  ```
+
+---
+
+### Match Score Update
+
+This will update the score in every match if the player answers correctly, by default, this will add 100 for each correct answer into the score column in match table.
+
+* URL
+  * `/match`
+* Method
+  * `PUT`
+* URL Params
+  * None
+* Header Params
+  ```javascript
+  {
+    token: // your token
+  }
+  ```
+* Data Params
+  ```javascript
+  {
+    match_id: // your match id
+  }
+  ```
+* Success Response
+  * Code: 200
+  * Content: 
+  ```javascript
+  {
+    "message": "Succesfully added score!"
+  }
+  ```
+* Error Response
+  * Code: 500
+  * Content:
+  ```javascript
+  {
+    "message": "INTERNAL SERVER ERROR!"
+  }
+  ```
+* Sample Call
+  ```javascript
+  $.ajax({
+    type: "PUT",
+    url: "/match",
+    data: {
+      match_id: 23
+    }
+  })
+    .done(updatedMatch => {
+      // do your awesome things here
+    })
+    .fail(error => {
+      // handle here
+    });
+  ```
+
+---
+
+### User Highest Score Update
+
+This will update the player's highest score based on the most recent score when the current match has successfully finished. In other words, this will accumulate the player's latest highest score with the total score of current match.
+
+* URL
+  * `/match`
+* Method
+  * `PATCH`
+* URL Params
+  * None
+* Header Params
+  ```javascript
+  {
+    token: // your token
+  }
+  ```
+* Data Params
+  ```javascript
+  {
+    match_id: // your match id
+  }
+  ```
+* Success Response
+  * Code: 200
+  * Content: 
+  ```javascript
+  {
+    "message": "Succesfully ended updated user highest score!"
+  }
+  ```
+* Error Response
+  * Code: 500
+  * Content:
+  ```javascript
+  {
+    "message": "INTERNAL SERVER ERROR!"
+  }
+  ```
+* Sample Call
+  ```javascript
+  $.ajax({
+    type: "PATCH",
+    url: "/match",
+    data: {
+      user_id: 23
+    }
+  })
+    .done(update => {
       // do your awesome things here
     })
     .fail(error => {
