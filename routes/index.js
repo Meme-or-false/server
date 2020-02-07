@@ -13,7 +13,7 @@ router.post("/login", userController.login);
 router.post("/register", userController.register);
 
 router.use(authenticate);
-
+router.get('/highest-score', userController.getScore)
 router.use('/memes', memeRouter);
 router.use('/trivia', triviaRouter);
 router.use("/yandex", yandexRouter);
