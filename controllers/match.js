@@ -10,10 +10,15 @@ class MatchController {
       match_id: req.body.match_id
     }
 
-    Match.findOne({ where: { id: userData.match_id } })
+    Match.findOne({ where: { id: userData.match_id }, include : User })
       .then((match) => {
+        let temp = match.score
+
+        if(temp < match.User.highest_score){
+          temp = match.User.highest_score
+        }
         return User.update(
-          { highest_score: match.score },
+          { highest_score: temp },
           { where: { email: userData.email } }
         )
       })
