@@ -12,12 +12,13 @@ router.post('/g-sign', userController.googleSignIn)
 router.post("/login", userController.login);
 router.post("/register", userController.register);
 
-router.use(errorHandler);
 router.use(authenticate);
 
 router.use('/memes', memeRouter);
 router.use('/trivia', triviaRouter);
 router.use("/yandex", yandexRouter);
 router.use("/match", matchRouter);
+
+router.use(errorHandler);
 
 module.exports = router;
